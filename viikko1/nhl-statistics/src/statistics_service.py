@@ -35,6 +35,8 @@ class StatisticsService:
                 return player.goals
             elif sort_criteria == SortBy.ASSISTS:
                 return player.assists
+            else:
+                raise ValueError("Invalid sort criteria")
 
         sorted_players = sorted(
             self._players,

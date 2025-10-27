@@ -1,6 +1,7 @@
 import unittest
 from statistics_service import StatisticsService, SortBy
 from player import Player
+from enum import Enum
 
 class PlayerReaderStub:
     def get_players(self):
@@ -56,5 +57,11 @@ class TestStatisticsService(unittest.TestCase):
         assists = [p.assists for p in top_players]
         self.assertEqual(assists, sorted(assists, reverse=True))
         self.assertEqual(top_players[0].name, "Gretzky")
+
+    def test_top_invalid_criteria_raises_ValueError(self):
+        class FakeSort(Enum):
+            FAKE = 1
+        with self.assertRaises(ValueError):
+            self.stats.top(2, FakeSort.FAKE)
 
     
